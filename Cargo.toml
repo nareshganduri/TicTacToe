@@ -5,3 +5,4 @@ authors = ["NSG"]
 edition = "2018"
 
 [dependencies]
+console = "0.7.5"
