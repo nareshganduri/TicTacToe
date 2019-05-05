@@ -151,6 +151,12 @@ pub fn render(board: Board, player_marker: Marker) {
 }
 
 pub fn get_marker() -> Marker {
+    println!();
+    for i in 0..5 {
+        println!("       {}         {}", X_MARKER[i], O_MARKER[i]);
+    }
+    println!();
+
     let mut input = get_prompt("Choose marker [X/O]: ");
     input.make_ascii_lowercase();
 

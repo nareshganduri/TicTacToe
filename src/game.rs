@@ -1,6 +1,6 @@
 use crate::board::Board;
 use crate::board::Winner;
-use crate::io::{clear_screen, get_comp_move, get_player_move, print_header, render, wait};
+use crate::io;
 use crate::mark::Mark;
 use crate::player::Player;
 
@@ -33,29 +33,29 @@ impl Game {
 
     pub fn run(&mut self) -> Winner {
         loop {
-            clear_screen();
+            io::clear_screen();
 
             if let Some(winner) = self.board.get_winner() {
-                print_header("GAME OVER");
-                render(self.board, self.player_marker);
+                io::print_header("GAME OVER");
+                io::render(self.board, self.player_marker);
 
                 return winner;
             } else {
                 match self.curr_player {
                     Player::Human => {
-                        print_header("Your Turn");
-                        render(self.board, self.player_marker);
+                        io::print_header("Your Turn");
+                        io::render(self.board, self.player_marker);
 
-                        let Mark { x, y } = get_player_move(self.board);
+                        let Mark { x, y } = io::get_player_move(self.board);
                         self.board = self.board.mark(x, y, Player::Human);
                     }
                     Player::Computer => {
-                        print_header("Computer's Turn");
-                        render(self.board, self.player_marker);
+                        io::print_header("Computer's Turn");
+                        io::render(self.board, self.player_marker);
 
-                        let Mark { x, y } = get_comp_move(self.board);
+                        let Mark { x, y } = io::get_comp_move(self.board);
                         self.board = self.board.mark(x, y, Player::Computer);
-                        wait();
+                        io::wait();
                     }
                 }
 

@@ -11,9 +11,13 @@ mod square;
 pub fn run_game() {
     let mut player_first = true;
 
+    io::print_header("Tic-Tac-Toe");
     println!("Welcome to Tic Tac Toe!\n\n\n");
+    io::wait();
 
     loop {
+        io::clear_screen();
+        io::print_header("Marker select");
         let player_marker = io::get_marker();
         let mut game = Game::new(player_first, player_marker);
 
@@ -26,9 +30,10 @@ pub fn run_game() {
 
         let play_again = io::get_yes_no("Play again?");
         if play_again {
-            io::clear_screen();
             player_first = !player_first;
         } else {
+            io::clear_screen();
+            io::print_header("Exit");
             println!("Goodbye.");
             io::wait();
             return;
