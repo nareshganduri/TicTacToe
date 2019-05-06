@@ -5,7 +5,7 @@ use crate::player::Player;
 use crate::square::Square;
 use std::io::Write;
 
-use console::{style, Term};
+use console::{style, Alignment, Style, Term};
 
 static X_MARKER: [&str; 5] = [
     "##     ##",
@@ -24,11 +24,15 @@ static O_MARKER: [&str; 5] = [
 ];
 
 pub fn print_header(msg: &str) {
+    let style = Style::new().blue().on_black();
     let mut term = Term::stdout();
+    let bar = "=========================================";
+    let msg = console::pad_str(msg, bar.len() - 2, Alignment::Center, None);
+    let bar = style.apply_to(bar);
+    let pipe = style.apply_to("|");
 
-    writeln!(term, "{}", style(msg).blue()).unwrap();
-
-    let bar = style("=========================================").blue();
+    writeln!(term, "{}", bar).unwrap();
+    writeln!(term, "{}{}{}", pipe, style.apply_to(msg), pipe).unwrap();
     writeln!(term, "{}", bar).unwrap();
 }
 

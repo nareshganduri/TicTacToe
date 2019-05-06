@@ -11,6 +11,7 @@ mod square;
 pub fn run_game() {
     let mut player_first = true;
 
+    io::clear_screen();
     io::print_header("Tic-Tac-Toe");
     println!("Welcome to Tic Tac Toe!\n\n\n");
     io::wait();
