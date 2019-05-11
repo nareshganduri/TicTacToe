@@ -6,6 +6,7 @@ use crate::square::Square;
 use std::io::Write;
 
 use console::{style, Alignment, Style, Term};
+use rand::seq::SliceRandom;
 
 static X_MARKER: [&str; 5] = [
     "##     ##",
@@ -94,8 +95,8 @@ pub fn get_player_move(board: Board) -> Mark {
 }
 
 pub fn get_comp_move(board: Board) -> Mark {
-    let mut max = std::isize::MIN;
-    let mut max_mark = 0.into();
+    let mut max_utility = std::isize::MIN;
+    let mut marks = vec![];
 
     for i in 0..9 {
         let mark = i.into();
@@ -104,16 +105,21 @@ pub fn get_comp_move(board: Board) -> Mark {
         if board.get(x, y).is_empty() {
             let board = board.mark(x, y, Player::Computer);
             let utility = board.utility(Player::Computer);
-            if utility > max {
-                max = utility;
-                max_mark = mark;
+            if utility > max_utility {
+                max_utility = utility;
             }
+
+            marks.push((mark, utility));
         } else {
             continue;
         }
     }
 
-    max_mark
+    marks.retain(|(_, utility)| *utility == max_utility);
+    let max_marks: Vec<_> = marks.into_iter().map(|(mark, _)| mark).collect();
+    let mut rng = rand::thread_rng();
+
+    *max_marks.choose(&mut rng).unwrap()
 }
 
 pub fn render(board: Board, player_marker: Marker) {
