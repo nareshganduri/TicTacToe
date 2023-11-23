@@ -1,5 +1,6 @@
 use crate::board::Winner;
 use crate::game::Game;
+use crate::player::Player;
 
 mod board;
 mod game;
@@ -9,7 +10,7 @@ mod player;
 mod square;
 
 pub fn run_game() {
-    let mut player_first = true;
+    let mut first_player = Player::Human;
 
     io::clear_screen();
     io::print_header("Tic-Tac-Toe");
@@ -20,7 +21,7 @@ pub fn run_game() {
         io::clear_screen();
         io::print_header("Marker select");
         let player_marker = io::get_marker();
-        let mut game = Game::new(player_first, player_marker);
+        let mut game = Game::new(first_player, player_marker);
 
         let winner = game.run();
         match winner {
@@ -31,7 +32,7 @@ pub fn run_game() {
 
         let play_again = io::get_yes_no("Play again?");
         if play_again {
-            player_first = !player_first;
+            first_player = first_player.opponent();
         } else {
             io::clear_screen();
             io::print_header("Exit");

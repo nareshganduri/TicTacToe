@@ -17,16 +17,10 @@ pub struct Game {
 }
 
 impl Game {
-    pub fn new(player_first: bool, player_marker: Marker) -> Self {
-        let first = if player_first {
-            Player::Human
-        } else {
-            Player::Computer
-        };
-
+    pub fn new(first_player: Player, player_marker: Marker) -> Self {
         Self {
             board: Board::new(),
-            curr_player: first,
+            curr_player: first_player,
             player_marker,
         }
     }

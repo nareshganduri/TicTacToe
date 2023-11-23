@@ -1,6 +1,6 @@
 # Tic-Tac-Toe
 
-A simple Tic-Tac-Toe "AI" in Rust demonstrating how [minmax][1] works.
+A simple Tic-Tac-Toe "AI" in Rust demonstrating how [minimax][1] works.
 
 ## Usage
 
